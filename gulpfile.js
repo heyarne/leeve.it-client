@@ -36,9 +36,19 @@ gulp.task('watch', function () {
 gulp.task('serve', ['javascript', 'watch'], function (done) {
   browserSync.init({
     server: {
-      baseDir: ['./src', './dist']
-    }
+      baseDir: ['./src', './dist'],
+      routes: {
+        '/node_modules': './node_modules'
+      }
+    },
+    https: true
   }, done)
 
-  gulp.watch(['src/*.html', './dist/**/*']).on('change', browserSync.reload)
+  // watch compiled files and sourcefiles that are not going to be compiled (html
+  // and css)
+  gulp.watch([
+    './src/*.html',
+    './src/css/*.css',
+    './dist/**/*'
+  ]).on('change', browserSync.reload)
 })
