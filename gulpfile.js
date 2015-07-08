@@ -19,7 +19,7 @@ gulp.task('javascript', function () {
   })
 
   return b.bundle()
-    .pipe(source('app.js')) // source takes text as input and emits a file
+    .pipe(source('bundle.js')) // source takes text as input and emits a file
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
         // Add transformation tasks to the pipeline here.
@@ -30,7 +30,7 @@ gulp.task('javascript', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(['./src/**/*.js'], ['javascript'])
+  gulp.watch(['./src/js/**/*.js'], ['javascript'])
 })
 
 gulp.task('serve', ['javascript', 'watch'], function (done) {
@@ -40,5 +40,5 @@ gulp.task('serve', ['javascript', 'watch'], function (done) {
     }
   }, done)
 
-  gulp.watch('./dist/*').on('change', browserSync.reload)
+  gulp.watch(['src/*.html', './dist/**/*']).on('change', browserSync.reload)
 })
