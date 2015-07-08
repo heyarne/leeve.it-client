@@ -1,7 +1,11 @@
-module.exports = {
+(function (App) {
+  window.App = App
 
-  // configure the server scheme, domain and (if necessary) port; please keep the
-  // trailing slash:
-  serverUrl: 'https://locahost:8000/'
+  App.config = {
 
-}
+    // configure the server scheme, domain and (if necessary) port; please keep
+    // the trailing slash:
+    serverUrl: 'https://locahost:8000/'
+
+  }
+})(window.App || {})
