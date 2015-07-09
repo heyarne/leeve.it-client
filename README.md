@@ -4,7 +4,7 @@ This is an application example to show how to interact with the leeve.it API. To
 
 ```
 $ npm install
-$ gulp serve
+$ npm start
 ```
 
 Please note that you need to have an API server running and configure the paths inside `./src/js/config.js`.
