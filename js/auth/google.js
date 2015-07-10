@@ -1,21 +1,27 @@
+/* globals fetch */
 'use strict'
 
 var _url = require('../helpers')._url
 
 function googleAuthSuccess (googleUser) {
-  var profile = googleUser.getBasicProfile()
-
-  console.log('Success! :)')
-  console.log(googleUser, profile)
-
-  var requestBody = new FormData()
-  requestBody.append('idtoken', googleUser.id_token)
+  console.log('Successfully authenticated using google! :)')
+  var response = googleUser.getAuthResponse()
 
   fetch(_url('auth/google/verify'), {
     method: 'post',
-    body: requestBody
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      idtoken: response.id_token
+    })
   }).then(function (res) {
-    console.log(response)
+    console.log('Token verified')
+    console.log(res)
+  }).catch(function (err) {
+    console.error('Could not verify the OpenID JWT')
+    console.error(err.message)
   })
 }
 

@@ -5,17 +5,15 @@ var webpack = require('webpack')
 var browserSync = require('browser-sync').create()
 var webpackConfig = require('./webpack.config')
 
-gulp.task('webpack', function(done) {
-    var config = Object.create(webpackConfig)
-
-    // run webpack
-    webpack(config, function(err, stats) {
-        if(err) throw new gutil.PluginError('webpack', err)
-        gutil.log('[webpack]', stats.toString({
-          colors: true
-        }))
-        done()
-    })
+gulp.task('webpack', function (done) {
+  // run webpack
+  webpack(webpackConfig, function (err, stats) {
+    if (err) throw new gutil.PluginError('webpack', err)
+    gutil.log('[webpack]', stats.toString({
+      colors: true
+    }))
+    done()
+  })
 })
 
 gulp.task('browser-sync', ['webpack'], function () {

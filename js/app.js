@@ -8,23 +8,7 @@ var auth = {
   google: require('./auth/google')
 }
 
-function getAuthProviders () {
-  console.log('Getting auth providers at ' + _url('auth/providers'))
-  fetch(_url('auth/providers'))
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function () {
-      console.log(arguments)
-    })
-    .catch(function () {
-      console.error('Something went wrong')
-      console.log(arguments)
-    })
-}
-
-(function init () {
+;(function init () {
   auth.google.setup('#login-buttons')
   map('map-container')
-  getAuthProviders()
 })()

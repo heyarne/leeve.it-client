@@ -18,6 +18,7 @@
     "webpack": "^1.10.1"
   },
   "dependencies": {
+    "burnt-toast": "^0.1.6",
     "es6-promise": "^2.3.0",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
