@@ -1,8 +1,22 @@
 'use strict'
 
-function googleAuthSuccess () {
+var _url = require('../helpers')._url
+
+function googleAuthSuccess (googleUser) {
+  var profile = googleUser.getBasicProfile()
+
   console.log('Success! :)')
-  console.log(arguments)
+  console.log(googleUser, profile)
+
+  var requestBody = new FormData()
+  requestBody.append('idtoken', googleUser.id_token)
+
+  fetch(_url('auth/google/verify'), {
+    method: 'post',
+    body: requestBody
+  }).then(function (res) {
+    console.log(response)
+  })
 }
 
 function googleAuthFailure () {

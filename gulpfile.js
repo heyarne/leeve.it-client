@@ -2,51 +2,38 @@ var gulp = require('gulp')
 var gutil = require('gulp-util')
 
 var webpack = require('webpack')
-var WebpackDevServer = require('webpack-dev-server')
+var browserSync = require('browser-sync').create()
 var webpackConfig = require('./webpack.config')
 
 gulp.task('webpack', function(done) {
+    var config = Object.create(webpackConfig)
+
     // run webpack
-    webpack(webpackConfig, function(err, stats) {
+    webpack(config, function(err, stats) {
         if(err) throw new gutil.PluginError('webpack', err)
         gutil.log('[webpack]', stats.toString({
-            // output options
+          colors: true
         }))
         done()
     })
 })
 
-gulp.task('webpack-dev-server', function(callback) {
-    // Start a webpack-dev-server
-    var config = Object.create(webpackConfig)
-    config.debug = true
-    config.devtool = 'source-map'
+gulp.task('browser-sync', ['webpack'], function () {
+  browserSync.init({
+    server: {
+      baseDir: '.',
+      index: 'index.html'
+    },
+    https: true,
+    ghostMode: false,
+    port: 8001
+  })
 
-    var compiler = webpack(config)
-
-    new WebpackDevServer(compiler, {
-        contentBase: __dirname,
-
-        hot: true,
-        inline: true,
-
-        quiet: false,
-        noInfo: false,
-        lazy: true,
-        https: true,
-
-        filename: "bundle.js",
-        aggregateTimeout: 150,
-        publicPath: "/"
-    }).listen(8001, 'localhost', function(err) {
-        if(err) throw new gutil.PluginError('webpack-dev-server', err)
-        // Server listening
-        gutil.log('[webpack-dev-server]', 'https://localhost:8001/webpack-dev-server/index.html')
-
-        // keep the server alive or continue?
-        // callback()
-    })
+  gulp.watch('bundle.js').on('change', browserSync.reload)
+  gulp.watch('css/*.css').on('change', browserSync.reload)
+  gulp.watch('index.html').on('change', browserSync.reload)
+  gulp.watch('js/**/*.js', ['webpack'])
 })
 
 gulp.task('build', ['webpack'])
-gulp.task('serve', ['webpack-dev-server'])
+gulp.task('serve', ['browser-sync'])

@@ -1,15 +1,11 @@
 'use strict'
+var _url = require('./helpers')._url
 
-// fun!
 var config = require('./config')
 var map = require('./map')
 
 var auth = {
   google: require('./auth/google')
-}
-
-function _url (url) {
-  return config.serverUrl + url
 }
 
 function getAuthProviders () {
@@ -26,8 +22,6 @@ function getAuthProviders () {
       console.log(arguments)
     })
 }
-
-console.log('Was geht ab?')
 
 (function init () {
   auth.google.setup('#login-buttons')
