@@ -19,6 +19,9 @@ function googleAuthSuccess (googleUser) {
   }).then(function (res) {
     console.log('Token verified')
     console.log(res)
+    fetch(_url('users/me'))
+      .then(console.log.bind(console))
+      .catch(console.error.bind(console))
   }).catch(function (err) {
     console.error('Could not verify the OpenID JWT')
     console.error(err.message)
