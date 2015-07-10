@@ -4,13 +4,24 @@
         <meta charset="utf-8" />
         <title>Leeve.it Example Applciation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css">
+        <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
         <!--[if lte IE 8]>
-        <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.ie.css" />
+        <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.ie.css" />
         <![endif]-->
-        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="css/styles.css" />
+
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="314677882298-auarn7hmbo4me71if8jm2n17qu090m2v.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
     <body>
+        <div id="login-container">
+            <ul id="login-buttons">
+                <li class="google-signin">
+                    <div class="g-signin2" data-onsuccess="googleAuthSuccess" data-onfailure="googleAuthFailure"></div>
+                </li>
+            </ul>
+        </div>
         <div id="map-container"></div>
 
         <!-- my files -->
