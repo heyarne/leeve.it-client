@@ -1,9 +1,5 @@
 'use strict'
 
-// polyfills
-window.Promise = window.Promise || require('es6-promise').Promise
-window.fetch = window.fetch || require('fetch-ponyfill')()
-
 // fun!
 var config = require('./config')
 var map = require('./map')
@@ -30,6 +26,8 @@ function getAuthProviders () {
       console.log(arguments)
     })
 }
+
+console.log('Was geht ab?')
 
 (function init () {
   auth.google.setup('#login-buttons')

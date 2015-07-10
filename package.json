@@ -11,14 +11,17 @@
   "author": "Arne Schlüter <aesthaddicts@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "beefy": "^2.1.5",
-    "watchify": "^3.2.3"
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.6",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
     "es6-promise": "^2.3.0",
     "fetch-ponyfill": "^0.9.0",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
-    "request": "^2.58.0"
+    "whatwg-fetch": "^0.9.0"
   }
 }
