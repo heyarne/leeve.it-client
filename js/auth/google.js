@@ -13,14 +13,17 @@ function googleAuthSuccess (googleUser) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({
       idtoken: response.id_token
     })
   }).then(function (res) {
     console.log('Token verified')
     console.log(res)
-    fetch(_url('users/me'))
-      .then(console.log.bind(console))
+
+    fetch(_url('users/me'), { credentials: 'include' })
+      .then(function (res) { return res.json() })
+      .then(function (res) { console.log(res) })
       .catch(console.error.bind(console))
   }).catch(function (err) {
     console.error('Could not verify the OpenID JWT')
