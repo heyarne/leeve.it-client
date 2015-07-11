@@ -13,6 +13,7 @@ function googleAuthSuccess (googleUser) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    // make sure the cookie we receive is set:
     credentials: 'include',
     body: JSON.stringify({
       idtoken: response.id_token

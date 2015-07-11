@@ -30,7 +30,10 @@ gulp.task('browser-sync', ['webpack'], function () {
   gulp.watch('bundle.js').on('change', browserSync.reload)
   gulp.watch('css/*.css').on('change', browserSync.reload)
   gulp.watch('index.html').on('change', browserSync.reload)
-  gulp.watch('js/**/*.js', ['webpack'])
+  gulp.watch([
+    'js/**/*.js',
+    'js/tags/**/*.tag'
+  ], ['webpack'])
 })
 
 gulp.task('build', ['webpack'])
