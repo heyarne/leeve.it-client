@@ -1,4 +1,4 @@
-<login-bar>
+<login>
     <script>
         var googleAuth = require('../auth/google')
         this.on('mount', googleAuth.setup)
@@ -10,4 +10,4 @@
             </li>
         </ul>
     </div>
-</login-bar>
+</login>
