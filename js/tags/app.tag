@@ -1,7 +1,7 @@
-require('./login-bar.tag')
+require('./login.tag')
 require('./map.tag')
 
 <app>
-    <login-bar></login-bar>
+    <login></login>
     <map></map>
 </app>
