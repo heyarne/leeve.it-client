@@ -16,7 +16,7 @@ require('./note-form/note-form.tag')
          * Constructs a Leaflet map int the given container
          * @param {String} containerId
          */
-        this.init = () => {
+        init () {
           map = L.map('map-container', {
             scrollWheelZoom: true,
             doubleClickZoom: false
@@ -40,7 +40,7 @@ require('./note-form/note-form.tag')
          * Sets up the events for interacting with the map (centering it when a
          * user's location is found, creating the form on doubleclick etc.)
          */
-        this.bindMapEvents = () => {
+        bindMapEvents () {
             // Fired when a user is located using the geolocation API
             map.on('locationfound', (event) => {
                 map.panTo(event.latlng)
