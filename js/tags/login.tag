@@ -1,13 +1,18 @@
 <login>
     <div id="login-container">
-        <ul id="login-buttons">
+        <ul id="login-buttons" if={!user}>
             <li class="google-signin">
                 <div class="g-signin2" data-onsuccess="googleAuthSuccess" data-onfailure="googleAuthFailure"></div>
             </li>
         </ul>
+
+        <div class="user-profile" if={user}>
+            Logged in as {user.alias}
+        </div>
     </div>
 
     <script>
+        var app = require('ampersand-app')
         var _url = require('../helpers')._url
 
         function googleAuthSuccess (googleUser) {
@@ -27,12 +32,9 @@
             })
           }).then(function (res) {
             console.log('Token verified')
-            console.log(res)
+            // console.log(res)
 
-            fetch(_url('users/me'), { credentials: 'include' })
-              .then(function (res) { return res.json() })
-              .then(function (res) { console.log(res) })
-              .catch(console.error.bind(console))
+            app.trigger('auth')
           }).catch(function (err) {
             console.error('Could not verify the OpenID JWT')
             console.error(err.message)
@@ -43,6 +45,18 @@
           console.error('Oh nose :(')
           console.log(arguments)
         }
+
+        this.user = null
+
+        app.on('login', (user) => {
+            this.user = user
+            this.update()
+        })
+
+        app.on('logout', () => {
+            this.user = null
+            this.update()
+        })
 
         this.on('mount', function () {
             window.googleAuthSuccess = googleAuthSuccess

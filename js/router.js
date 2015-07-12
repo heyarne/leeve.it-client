@@ -8,7 +8,7 @@ module.exports = Router.extend({
   },
 
   home: function () {
-    if (!app.me || !app.me.signedIn()) {
+    if (!app.isLoggedIn()) {
       app.router.redirectTo('login')
     }
   },
