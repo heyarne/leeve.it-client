@@ -3,7 +3,7 @@ var webpack = require('webpack')
 module.exports = {
   entry: './js/app.js',
   debug: true,
-  devtool: 'source-map',
+  devtool: 'eval-cheap-module-source-map',
   output: {
     filename: 'bundle.js'
   },
