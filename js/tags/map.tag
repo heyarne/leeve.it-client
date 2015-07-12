@@ -36,18 +36,32 @@ require('./note-form/note-form.tag')
           }
         }
 
+        /**
+         * Sets up the events for interacting with the map (centering it when a
+         * user's location is found, creating the form on doubleclick etc.)
+         */
         this.bindMapEvents = () => {
             // Fired when a user is located using the geolocation API
             map.on('locationfound', (event) => {
                 map.panTo(event.latlng)
             })
 
-            map.on('dblclick', function (event) {
+            // set up the url for the creation form to be opened at a specific place
+            map.on('dblclick', (event) => {
                 var { lat, lng } = event.latlng
                 app.navigate(`notes/create/${lat}/${lng}`)
             })
+
+            // navigate back home when the creation form is closed
+            map.on('popupclose', () => {
+                app.navigate('')
+            })
         }
 
+        /**
+         * Sets up the note creation form
+         * @param  {LatLng} latLng
+         */
         this.createNote = (latLng) => {
             var noteCreationElem = document.createElement('div')
             riot.mount(noteCreationElem, 'note-form')
@@ -57,6 +71,8 @@ require('./note-form/note-form.tag')
         }
 
         this.on('mount', this.init)
+
         app.on('notes:create', this.createNote)
+        app.on('home', () => map.closePopup())
     </script>
 </map>

@@ -12,6 +12,7 @@ module.exports = Router.extend({
     // if (!app.isLoggedIn()) {
     //   app.router.redirectTo('login')
     // }
+    app.trigger('home')
   },
 
   login: function () {
