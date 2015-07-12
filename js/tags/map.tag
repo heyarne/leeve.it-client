@@ -4,6 +4,7 @@ require('./note-form/note-form.tag')
     <div id="map-container"></div>
 
     <script>
+        var app = require('ampersand-app')
         var riot = require('riot')
         var L = require('leaflet')
         // the path to the leaflet images folder
@@ -29,7 +30,10 @@ require('./note-form/note-form.tag')
           this.bindMapEvents()
 
           map.setZoom(11)
-          map.locate()
+
+          if (!window.location.hash) {
+            map.locate()
+          }
         }
 
         this.bindMapEvents = () => {
@@ -38,17 +42,21 @@ require('./note-form/note-form.tag')
                 map.panTo(event.latlng)
             })
 
-            map.on('dblclick', this.createNote)
+            map.on('dblclick', function (event) {
+                var { lat, lng } = event.latlng
+                app.navigate(`notes/create/${lat}/${lng}`)
+            })
         }
 
-        this.createNote = (event) => {
+        this.createNote = (latLng) => {
             var noteCreationElem = document.createElement('div')
             riot.mount(noteCreationElem, 'note-form')
 
-            map.panTo(event.latlng)
-            map.openPopup(noteCreationElem, event.latlng)
+            map.panTo(latLng)
+            map.openPopup(noteCreationElem, latLng)
         }
 
         this.on('mount', this.init)
+        app.on('notes:create', this.createNote)
     </script>
 </map>

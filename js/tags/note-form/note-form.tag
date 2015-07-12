@@ -12,16 +12,15 @@ require('./note-form-markdown.tag')
 
     <script>
         this.mode = null
+        this.modes = {
+            choose: 'CHOOSE',
+            markdown: 'MARKDOWN',
+            image: 'IMAGE'
+        }
 
         this.on('mount', (options) => {
-            this.modes = {
-                choose: Symbol('choose'),
-                markdown: Symbol('markdown'),
-                image: Symbol('image')
-            }
 
-            var mode = options ? options.mode : this.modes.choose
-            this.mode = this.modes[mode]
+            this.mode = options ? this.modes[options.mode] : this.modes.choose
             console.log('Mounted with options', options)
             console.log('Starting in mode', this.mode)
         })

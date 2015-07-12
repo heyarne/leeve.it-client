@@ -26,9 +26,7 @@ app.extend({
 
   navigate: function (page) {
     var url = (page.charAt(0) === '/') ? page.slice(1) : page
-    this.router.history.navigate(url, {
-      trigger: true
-    })
+    this.router.history.navigate(url, { trigger: true })
   },
 
   isLoggedIn: function () {
