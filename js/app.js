@@ -35,6 +35,9 @@ app.extend({
 
 })
 
+// the auth event indicates that we successfully authentified against the server,
+// having established a session cookie that we can use to further request
+// sensbile data.
 app.on('auth', function () {
   new Me().fetch({
     success: function (me) {

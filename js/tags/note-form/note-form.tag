@@ -1,4 +1,4 @@
-require('./note-form-image.tag')
+require('./image-upload.tag')
 require('./markdown-edit.tag')
 
 <note-form>
@@ -14,7 +14,7 @@ require('./markdown-edit.tag')
             <a href="#" onclick={ chooseMode }>&laquo; back</a>
         </div>
 
-        <note-form-image show={mode === modes.image}></note-form-image>
+        <image-upload show={mode === modes.image}></image-upload>
         <markdown-editor show={mode === modes.markdown } />
     </div>
 
@@ -24,7 +24,7 @@ require('./markdown-edit.tag')
             markdown: Symbol('markdown'),
             image: Symbol('image')
         }
-        this.mode = this.modes[opts.mode] || this.modes.choose
+        this.mode = opts.mode ? this.modes[opts.mode] : this.modes.choose
 
         chooseMode () {
             thise.mode = this.modes.choose
