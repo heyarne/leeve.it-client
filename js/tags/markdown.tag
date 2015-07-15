@@ -5,8 +5,12 @@
         var marked = require('marked')
 
         this.on('update', () => {
-            this.html = opts.text ? marked(opts.text) : ''
-            this.root.innerHTML = this.html
+            try {
+                this.html = opts.text ? marked(opts.text) : ''
+                this.root.innerHTML = this.html
+            } catch (e) {
+                console.error('Markdown error', e)
+            }
         })
     </script>
 </markdown>
