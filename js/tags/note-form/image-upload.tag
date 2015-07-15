@@ -1,13 +1,13 @@
 <image-upload>
     <div class="image-upload">
-        <img class="thumbnail" src="{thumb}" if={thumb} />
+        <img class="thumbnail" src="{dataURL}" if={dataURL} />
         <input type="file" accept="image/jpeg,image/gif,image/png" onchange={ fileInput } />
     </div>
 
     <script>
         var reader = new FileReader()
 
-        this.thumb = null
+        this.dataURL = null
 
         fileInput (e) {
             var file = e.target.files[0]
@@ -18,10 +18,13 @@
 
         reader.onload = (e) => {
             var base64 = e.target.result
-            console.log('Loaded image: ', e)
 
-            this.thumb = base64
+            this.dataURL = base64
             this.update()
+        }
+
+        getValue () {
+            return this.dataURL
         }
     </script>
 </image-upload>

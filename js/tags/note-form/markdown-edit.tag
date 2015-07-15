@@ -3,7 +3,7 @@ require('../markdown.tag')
 <markdown-editor>
     <div class="markdown-editor">
         <textarea hide={preview} placeholder="Write some markdown…" onkeyup={ updateText }>{ text }</textarea>
-        <markdown text={text} show={preview} />
+        <markdown show={preview} text={text} />
 
         <a href="#" onclick={startPreview} hide={preview}>Preview</a>
         <a href="#" onclick={endPreview} show={preview}>Edit</a>
@@ -23,6 +23,10 @@ require('../markdown.tag')
 
         updateText (event) {
             this.text = event.target.value
+        }
+
+        getValue () {
+            return this.text
         }
     </script>
 </markdown-editor>

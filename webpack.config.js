@@ -10,7 +10,11 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       riot: 'riot'
-    })
+    }),
+    // openpgpjs depends on node-localstorage which emulates localstorage on the
+    // server. this in turn requires fs in an incompatible way; since we're
+    // running it in the browser anyways, it's safe to ignore it.
+    new webpack.IgnorePlugin(/^fs$/)
   ],
   module: {
     preLoaders: [

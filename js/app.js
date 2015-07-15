@@ -40,11 +40,11 @@ app.extend({
 // sensbile data.
 app.on('auth', function () {
   new Me().fetch({
-    success: function (me) {
+    success (me) {
       app.me = me
       app.trigger('login', me)
     },
-    error: function () {
+    error () {
       console.log('Unable to fetch me', arguments)
     }
   })
@@ -52,6 +52,21 @@ app.on('auth', function () {
 
 app.on('logout', function () {
   app.me = null
+})
+
+// initialize crypto on login with some sensible defaults
+var Crypto = require('./crypto')
+app.on('login', function (me) {
+  app.crypto = new Crypto({
+    numBits: 2048,
+    userId: me.keyIdentifier,
+    passphrase: '$HARD$CODED$PASSWORDS$ARE$A$BAD$IDEA'
+  })
+})
+
+// TODO: Put this into a store
+app.on('notes:new', function (note) {
+  console.log('Created note', note)
 })
 
 // expose for debugging:

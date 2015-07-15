@@ -8,18 +8,15 @@ module.exports = Router.extend({
     'notes/create/:lat/:lng': 'createNote'
   },
 
-  home: function () {
-    // if (!app.isLoggedIn()) {
-    //   app.router.redirectTo('login')
-    // }
+  home () {
     app.trigger('home')
   },
 
-  login: function () {
+  login () {
     // console.log('This is the login screen')
   },
 
-  createNote: function (lat, lng) {
+  createNote (lat, lng) {
     app.trigger('notes:create', [lat, lng])
   }
 })

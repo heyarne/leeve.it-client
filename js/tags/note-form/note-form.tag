@@ -14,17 +14,24 @@ require('./markdown-edit.tag')
             <a href="#" onclick={ chooseMode }>&laquo; back</a>
         </div>
 
-        <image-upload show={mode === modes.image}></image-upload>
-        <markdown-editor show={mode === modes.markdown } />
+        <form if={mode !== modes.choose} onsubmit={ handleSubmit }>
+            <image-upload show={mode === modes.image}></image-upload>
+            <markdown-editor show={mode === modes.markdown } />
+
+            <button type="submit">Upload</button>
+        </form>
     </div>
 
     <script>
+        var Note = require('../../models/note')
+
         this.modes = {
             choose: Symbol('choose'),
             markdown: Symbol('markdown'),
             image: Symbol('image')
         }
         this.mode = opts.mode ? this.modes[opts.mode] : this.modes.choose
+        this.latLng = opts.latLng
 
         chooseMode () {
             thise.mode = this.modes.choose
@@ -36,6 +43,16 @@ require('./markdown-edit.tag')
 
         imageMode () {
             this.mode = this.modes.image
+        }
+
+        handleSubmit () {
+            var tag = (this.mode === this.modes.markdown) ? 'markdown-editor' : 'image-upload'
+            var note = this.tags[tag].getValue()
+
+            app.trigger('notes:new', new Note({
+                content: note,
+                latLng: this.latLng
+            }))
         }
     </script>
 </note-form>

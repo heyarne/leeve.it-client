@@ -64,7 +64,7 @@ require('./note-form/note-form.tag')
          */
         this.createNote = (latLng) => {
             var noteCreationElem = document.createElement('div')
-            riot.mount(noteCreationElem, 'note-form')
+            riot.mount(noteCreationElem, 'note-form', { latLng: latLng })
 
             map.panTo(latLng)
             map.openPopup(noteCreationElem, latLng)
