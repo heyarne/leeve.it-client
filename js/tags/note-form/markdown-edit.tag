@@ -25,8 +25,11 @@ require('../markdown.tag')
             this.text = event.target.value
         }
 
-        getValue () {
-            return this.text
+        getNote () {
+            return {
+                mimeType: 'text/x-markdown',
+                text: this.text
+            }
         }
     </script>
 </markdown-editor>

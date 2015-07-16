@@ -10,6 +10,7 @@ require('./note-form/note-form.tag')
         // the path to the leaflet images folder
         L.Icon.Default.imagePath = '/node_modules/leaflet/dist/images/'
 
+        var markers = []
         var map
 
         /**
@@ -53,16 +54,14 @@ require('./note-form/note-form.tag')
             })
 
             // navigate back home when the creation form is closed
-            map.on('popupclose', () => {
-                app.navigate('')
-            })
+            map.on('popupclose', () =>  app.navigate(''))
         }
 
         /**
          * Sets up the note creation form
          * @param  {LatLng} latLng
          */
-        this.createNote = (latLng) => {
+        createNote (latLng) {
             var noteCreationElem = document.createElement('div')
             riot.mount(noteCreationElem, 'note-form', { latLng: latLng })
 
@@ -70,9 +69,28 @@ require('./note-form/note-form.tag')
             map.openPopup(noteCreationElem, latLng)
         }
 
+        /**
+         * Draws all markers to the map and sets the popup to display the note's
+         * contents.
+         *
+         * @param  {Array[Note]} notes  The notes to display
+         */
+        updateMarkers (notes) {
+            markers.forEach(marker => {
+                map.removeLayer(marker)
+            })
+
+            notes.forEach(note => {
+                var marker = L.marker(note.location, { note: note })
+                marker.addTo(map)
+                markers.push(marker)
+            })
+        }
+
         this.on('mount', this.init)
 
         app.on('notes:create', this.createNote)
+        app.on('notes:changed', this.updateMarkers)
         app.on('home', () => map.closePopup())
     </script>
 </map>

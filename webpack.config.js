@@ -15,6 +15,12 @@ module.exports = {
     // server. this in turn requires fs in an incompatible way; since we're
     // running it in the browser anyways, it's safe to ignore it.
     new webpack.IgnorePlugin(/^fs$/)
+    // new webpack.optimize.DedupePlugin(),
+    // new webpack.optimize.UglifyJsPlugin({
+    //     mangle: {
+    //         except: ['$super', '$', 'exports', 'require']
+    //     }
+    // })
   ],
   module: {
     preLoaders: [

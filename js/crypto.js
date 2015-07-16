@@ -8,7 +8,7 @@ var openpgp = require('openpgp')
 /**
  * A thin wrapper around openpgpjs, used for en- and decrypting notes
  *
- * @type {[type]}
+ * @class
  */
 module.exports = class Crypto {
 
@@ -24,7 +24,7 @@ module.exports = class Crypto {
     }
 
     var localKeyPair = localStorage.getItem(LOCALSTORAGE_IDENTIFIER)
-    var keyPair = localKeyPair ? JSON.stringify(localKeyPair) : null
+    var keyPair = localKeyPair ? JSON.parse(localKeyPair) : null
 
     this._passphrase = options.passphrase
 

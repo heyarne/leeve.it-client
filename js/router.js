@@ -12,10 +12,6 @@ module.exports = Router.extend({
     app.trigger('home')
   },
 
-  login () {
-    // console.log('This is the login screen')
-  },
-
   createNote (lat, lng) {
     app.trigger('notes:create', [lat, lng])
   }

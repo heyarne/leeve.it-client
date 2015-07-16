@@ -1,3 +1,4 @@
+/* globals fetch */
 'use strict'
 
 require('./tags/app.tag')
@@ -7,6 +8,8 @@ var app = require('ampersand-app')
 var Router = require('./router')
 
 var Me = require('./models/me')
+var Note = require('./models/note')
+var _url = require('./helpers')._url
 
 app.extend({
 
@@ -37,17 +40,27 @@ app.extend({
 
 // the auth event indicates that we successfully authentified against the server,
 // having established a session cookie that we can use to further request
-// sensbile data.
+// sensbile data (in this case our profile and notes).
 app.on('auth', function () {
-  new Me().fetch({
-    success (me) {
-      app.me = me
-      app.trigger('login', me)
-    },
-    error () {
-      console.log('Unable to fetch me', arguments)
-    }
-  })
+  fetch(_url('users/me'), { credentials: 'include' })
+    .then(res => { return res.json() })
+    .then(me => {
+      app.me = new Me(me)
+      app.trigger('login', app.me)
+    })
+    .catch(() => {
+      console.error('Unable to fetch me', arguments)
+    })
+
+  fetch(_url('notes/me'), { credentials: 'include' })
+    .then(res => { return res.json() })
+    .then(notes => {
+      app.notes = notes.map(note => new Note(note))
+      app.trigger('notes:changed', app.notes)
+    })
+    .catch(() => {
+      console.error('Could not fetch notes', arguments)
+    })
 })
 
 app.on('logout', function () {
@@ -66,7 +79,9 @@ app.on('login', function (me) {
 
 // TODO: Put this into a store
 app.on('notes:new', function (note) {
-  console.log('Created note', note)
+  note.save()
+  app.notes.push(note)
+  app.trigger('notes:changed', app.notes)
 })
 
 // expose for debugging:

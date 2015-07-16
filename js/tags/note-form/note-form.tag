@@ -23,6 +23,7 @@ require('./markdown-edit.tag')
     </div>
 
     <script>
+        var app = require('ampersand-app')
         var Note = require('../../models/note')
 
         this.modes = {
@@ -49,10 +50,15 @@ require('./markdown-edit.tag')
             var tag = (this.mode === this.modes.markdown) ? 'markdown-editor' : 'image-upload'
             var note = this.tags[tag].getValue()
 
-            app.trigger('notes:new', new Note({
-                content: note,
-                latLng: this.latLng
-            }))
+            app.crypto.encrypt(JSON.stringify(note))
+                .then(encryptedNote => {
+
+                    app.trigger('notes:new', new Note({
+                        content: encryptedNote,
+                        location: this.latLng
+                    }))
+                })
+                .catch(err => console.error('Could not encrypt message', err))
         }
     </script>
 </note-form>

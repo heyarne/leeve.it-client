@@ -21,14 +21,12 @@
   },
   "dependencies": {
     "ampersand-app": "^1.0.4",
-    "ampersand-collection": "^1.4.5",
-    "burnt-toast": "^0.1.6",
+    "ampersand-model": "^5.0.3",
+    "ampersand-router": "^3.0.2",
     "es6-promise": "^2.3.0",
-    "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
     "marked": "^0.3.3",
     "openpgp": "^1.2.0",
-    "superagent": "^1.2.0",
     "whatwg-fetch": "^0.9.0"
   }
 }

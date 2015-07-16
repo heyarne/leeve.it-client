@@ -8,10 +8,14 @@
         var reader = new FileReader()
 
         this.dataURL = null
+        this.mimeType =
 
         fileInput (e) {
             var file = e.target.files[0]
             if (!file.type.match('image.*')) return
+
+            this.mimeType = file.type
+            console.log(this.mimeType)
 
             reader.readAsDataURL(file)
         }
@@ -23,8 +27,11 @@
             this.update()
         }
 
-        getValue () {
-            return this.dataURL
+        getNote () {
+            return {
+                mimeType: this.mimeType,
+                value: this.dataURL
+            }
         }
     </script>
 </image-upload>

@@ -1,13 +1,13 @@
-var EncryptedMessage = require('./encrypted-message')
+var BaseModel = require('./base-model')
 var _url = require('../helpers')._url
 
-module.exports = EncryptedMessage.extend({
+module.exports = BaseModel.extend({
 
   urlRoot: _url('/notes'),
 
   props: {
     content: 'string',
-    latLng: 'array'
+    location: 'array'
   }
 
 })
