@@ -70,10 +70,11 @@ module.exports = class Crypto {
    * @return {Promise}
    */
   decrypt (message) {
-    var privateKey = openpgp.key.readArmored(this._keyPair.privateKeyArmored)
-    privateKey.decrypt(this.passphrase)
+    var msg = openpgp.message.readArmored(message)
+    var privateKey = openpgp.key.readArmored(this._keyPair.privateKeyArmored).keys[0]
+    privateKey.decrypt(this._passphrase)
 
-    return openpgp.decryptMessage(privateKey, message)
+    return openpgp.decryptMessage(privateKey, msg)
   }
 
 }

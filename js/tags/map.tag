@@ -1,4 +1,5 @@
 require('./note-form/note-form.tag')
+require('./note/note.tag')
 
 <map>
     <div id="map-container"></div>
@@ -69,6 +70,24 @@ require('./note-form/note-form.tag')
             map.openPopup(noteCreationElem, latLng)
         }
 
+        showNote (event) {
+            var { target: { note } } = event
+
+            var noteElem = document.createElement('div')
+            console.log(note)
+
+            app.crypto.decrypt(note.content)
+                .then(json => {
+                    var note = JSON.parse(json)
+                    console.log(note)
+                })
+                .catch(err => {
+                    console.error('Can\'t decrypt message', err)
+                })
+
+            // map.openPopup(note.location, note.content)
+        }
+
         /**
          * Draws all markers to the map and sets the popup to display the note's
          * contents.
@@ -82,9 +101,13 @@ require('./note-form/note-form.tag')
                 map.removeLayer(marker)
             })
 
+            markers = []
+
             notes.forEach(note => {
-                var marker = L.marker(note.location, { note: note })
-                marker.addTo(map)
+                var marker = L.marker(note.location)
+                marker.note = note
+                marker.addTo(map).on('click', this.showNote)
+
                 markers.push(marker)
             })
         }
