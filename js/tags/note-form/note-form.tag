@@ -48,7 +48,7 @@ require('./markdown-edit.tag')
 
         handleSubmit () {
             var tag = (this.mode === this.modes.markdown) ? 'markdown-editor' : 'image-upload'
-            var note = this.tags[tag].getValue()
+            var note = this.tags[tag].getNote()
 
             app.crypto.encrypt(JSON.stringify(note))
                 .then(encryptedNote => {

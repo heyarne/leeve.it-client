@@ -8,7 +8,7 @@ require('./note-form/note-form.tag')
         var riot = require('riot')
         var L = require('leaflet')
         // the path to the leaflet images folder
-        L.Icon.Default.imagePath = '/node_modules/leaflet/dist/images/'
+        L.Icon.Default.imagePath = '/node_modules/leaflet/dist/images'
 
         var markers = []
         var map
@@ -54,7 +54,7 @@ require('./note-form/note-form.tag')
             })
 
             // navigate back home when the creation form is closed
-            map.on('popupclose', () =>  app.navigate(''))
+            map.on('popupclose', () => window.location.hash && app.navigate(''))
         }
 
         /**
@@ -76,6 +76,8 @@ require('./note-form/note-form.tag')
          * @param  {Array[Note]} notes  The notes to display
          */
         updateMarkers (notes) {
+            map.closePopup()
+
             markers.forEach(marker => {
                 map.removeLayer(marker)
             })

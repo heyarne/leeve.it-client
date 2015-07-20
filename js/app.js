@@ -52,7 +52,7 @@ app.on('auth', function () {
       console.error('Unable to fetch me', arguments)
     })
 
-  fetch(_url('notes/me'), { credentials: 'include' })
+  fetch(_url('messages/me'), { credentials: 'include' })
     .then(res => { return res.json() })
     .then(notes => {
       app.notes = notes.map(note => new Note(note))
