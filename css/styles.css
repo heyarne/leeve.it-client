@@ -4,6 +4,8 @@ body {
     margin: 0;
     width: 100%;
     height: 100%;
+
+    font-family: sans-serif;
 }
 
 #login-container {
@@ -35,26 +37,27 @@ body {
     text-align: center;
 }
 
-.note-form ul {
+.note-form ul.choose {
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-.note-form ul li {
+.note-form ul.choose li {
     display: inline-block;
 }
 
-.note-form ul li:before {
+.note-form ul.choose li:before {
     content: ' or ';
 }
 
-.note-form ul li:first-child:before {
+.note-form ul.choose li:first-child:before {
     content: '';
 }
 
-.image-upload .thumbnail {
+.image-upload .thumbnail,
+.note .thumbnail {
     max-width: 100% !important; /* we have to override the leaflet styles here */
     height: auto;
 }

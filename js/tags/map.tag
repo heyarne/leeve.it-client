@@ -61,7 +61,8 @@ require('./note/note.tag')
 
         /**
          * Sets up the note creation form
-         * @param  {LatLng} latLng
+         *
+         * @param  {LatLng} LatLng  Latitude and longitude to display the form at
          */
         createNote (latLng) {
             var noteCreationElem = document.createElement('div')
@@ -71,6 +72,13 @@ require('./note/note.tag')
             map.openPopup(noteCreationElem, latLng)
         }
 
+        /**
+         * Decrypts and displays a note belonging to a specific marker using the
+         * apprropriate renderer
+         *
+         * @param  {Event}  event  The event passed into the callback function on
+         *                         marker click
+         */
         showNote (event) {
             var { target: { note } } = event
 
@@ -78,8 +86,7 @@ require('./note/note.tag')
 
             app.crypto.decrypt(note.content)
                 .then(json => {
-                    var note = JSON.parse(json)
-                    console.log('note:', note)
+                    note.content = JSON.parse(json)
                     riot.mount(noteElem, 'note', note)
                 })
                 .catch(err => {
@@ -87,7 +94,6 @@ require('./note/note.tag')
                 })
 
 
-            console.log('Opening popup ', noteElem, 'Target:', note)
             map.openPopup(noteElem, note.location)
         }
 
