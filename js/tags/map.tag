@@ -11,6 +11,7 @@ require('./note/note.tag')
         // the path to the leaflet images folder
         L.Icon.Default.imagePath = '/node_modules/leaflet/dist/images'
 
+        var popup = L.popup()
         var markers = []
         var map
 
@@ -74,18 +75,20 @@ require('./note/note.tag')
             var { target: { note } } = event
 
             var noteElem = document.createElement('div')
-            console.log(note)
 
             app.crypto.decrypt(note.content)
                 .then(json => {
                     var note = JSON.parse(json)
-                    console.log(note)
+                    console.log('note:', note)
+                    riot.mount(noteElem, 'note', note)
                 })
                 .catch(err => {
                     console.error('Can\'t decrypt message', err)
                 })
 
-            // map.openPopup(note.location, note.content)
+
+            console.log('Opening popup ', noteElem, 'Target:', note)
+            map.openPopup(noteElem, note.location)
         }
 
         /**

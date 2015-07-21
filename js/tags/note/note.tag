@@ -1,11 +1,13 @@
 require('../markdown.tag')
 
 <note>
-    <markdown text={content} if={ mimeType === 'text/x-markdown' } />
-    <img src={content} if={ mimeType.match(/^image\//) } />
+    <pre>
+        mime: {{mimeType}}<br>
+        value: {{value}}
+    </pre>
 
     <script>
-        this.mimeType = opts.type
-        this.content = opts.content
+        this.mimeType = opts.mimeType
+        this.value = opts.value
     </script>
 </note>

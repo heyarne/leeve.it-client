@@ -28,7 +28,7 @@ require('../markdown.tag')
         getNote () {
             return {
                 mimeType: 'text/x-markdown',
-                text: this.text
+                value: this.text
             }
         }
     </script>

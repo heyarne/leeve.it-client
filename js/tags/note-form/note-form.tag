@@ -49,13 +49,13 @@ require('./markdown-edit.tag')
         handleSubmit () {
             var tag = (this.mode === this.modes.markdown) ? 'markdown-editor' : 'image-upload'
             var note = this.tags[tag].getNote()
+            var latLng = this.latLng
 
             app.crypto.encrypt(JSON.stringify(note))
                 .then(encryptedNote => {
-
                     app.trigger('notes:new', new Note({
                         content: encryptedNote,
-                        location: this.latLng
+                        location: latLng
                     }))
                 })
                 .catch(err => console.error('Could not encrypt message', err))

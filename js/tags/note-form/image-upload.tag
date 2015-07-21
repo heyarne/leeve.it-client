@@ -8,7 +8,7 @@
         var reader = new FileReader()
 
         this.dataURL = null
-        this.mimeType =
+        this.mimeType = null
 
         fileInput (e) {
             var file = e.target.files[0]
