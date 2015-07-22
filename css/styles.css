@@ -61,3 +61,20 @@ body {
     max-width: 100% !important; /* we have to override the leaflet styles here */
     height: auto;
 }
+
+.user-profile {
+    margin: 6px;
+    padding: 12px;
+    line-height: 32px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+.user-profile .user-picture {
+    float: left;
+    height: 32px;
+    width: auto;
+    margin-right: 12px;
+    border-radius: 50%;
+}

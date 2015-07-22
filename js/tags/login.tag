@@ -7,6 +7,7 @@
         </ul>
 
         <div class="user-profile" if={user}>
+            <img src="{{user.picture}}" alt="profile picture" class="user-picture" />
             Logged in as {user.alias}
         </div>
     </div>
